@@ -11,6 +11,14 @@
     align-items: center;
     flex: 0 0 40%;
 
+    @media only screen and (max-width: $bp-xsmall) {
+        // move the search bar to the end
+        // all elements have a default order: 0 
+        order: 1;
+        flex: 0 0 100%;
+        background-color: var(--color-grey-light-2);
+    }
+
     &__input {
         // form input doesn't inherit font setting from global document
         font-family: inherit;
@@ -121,11 +129,23 @@
     list-style: none;
     margin-top: 3.5rem;
 
+    @media only screen and (max-width: $bp-medium) {
+        display: flex;
+        margin: 0;
+    }
+
     &__item {
         position: relative;
 
+        @media only screen and (max-width: $bp-medium) {
+            flex: 1;
+        }
+        
         &:not(:last-child) {
             margin-bottom: 0.5rem;
+            @media only screen and (max-width: $bp-medium) {
+                margin: 0;
+            }
         }
 
         &::before {
@@ -167,6 +187,16 @@
         // z-index only works when the position is non-static
         position: relative;
         z-index: 1;
+
+        @media only screen and (max-width: $bp-medium) {
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        @media only screen and (max-width: $bp-small) {
+            flex-direction: column;
+            padding: 1.5rem;
+        }
     }
 
     &__icon {
@@ -175,6 +205,13 @@
         margin-right: 2rem;
         // "currentColor" refers to the color of current element of parent element
         fill: currentColor;
+
+        @media only screen and (max-width: $bp-small) {
+            margin: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
     }
 }
 
@@ -183,6 +220,10 @@
     color: var(--color-grey-light-4);
     text-align: center;
     padding: 2.5rem;
+
+    @media only screen and (max-width: $bp-medium) {
+        display: none;
+    }
 }
 
 // ****** Gallery ******
@@ -208,6 +249,11 @@
         text-transform: uppercase;
         letter-spacing: 1px;
         padding: 1.5rem 3rem;
+
+        @media only screen and (max-width: $bp-small) {
+            font-size: 1.8rem;
+            padding: 1.25rem 2rem;
+        }
     }
     &__stars {
         // stars section will automatically take all the available space on the right side
@@ -242,17 +288,27 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
+        @media only screen and (max-width: $bp-small) {
+            padding: 0 1.5rem;
+        }
     }
     &__rating-average {
         font-size: 2.25rem;
         font-weight: 300;
         margin-bottom: -3px;
 
+        @media only screen and (max-width: $bp-small) {
+            font-size: 1.8rem;
+        }
     }
     &__rating-count {
         font-size: .8rem;
         text-transform: uppercase;
-
+        
+        @media only screen and (max-width: $bp-small) {
+        font-size: .5rem;
+        }
     }
 }
 
@@ -324,20 +380,25 @@
             margin-right: .7rem;
             // Solution #1 - user background-image for old browsers
             // However, you cannot change the color of the icon
-            // background-image: url(../img/chevron-thin-right.svg);
-            // background-size: cover;
+            background-image: url(../img/chevron-thin-right.svg);
+            background-size: cover;
 
             // Solution #2 - use "masks" (not supported by IE)
             // Mask defines an area that we can look through it and see what's behind the element
             // Here, we set a background color for the element (icon) and use the element (icon) as the mask to look through it and see the background color
 
-            background-color: var(--color-primary);
-            // use the browser pre-fix
-            -webkit-mask-image: url(../img/chevron-thin-right.svg);
-            -webkit-mask-size: cover;
-            // once the feature is fully supported across browsers
-            mask-image: url(../img/chevron-thin-right.svg);
-            mask-size: cover;
+            // Feature query
+            // The @supports CSS at-rule lets you specify declarations that depend on a browser's support for one or more specific CSS features.
+            @supports (-webkit-mask-image: url()) or (mask-image: url()) {
+                background-color: var(--color-primary);
+                // use the browser pre-fix
+                -webkit-mask-image: url(../img/chevron-thin-right.svg);
+                -webkit-mask-size: cover;
+                // once the feature is fully supported across browsers
+                mask-image: url(../img/chevron-thin-right.svg);
+                mask-size: cover;
+                background-image: none;
+            }
         }
     }
 }
@@ -351,6 +412,10 @@
     justify-content: space-between;
     align-items: center;
 
+    &__friends {
+        display: flex;
+    }
+
     &__photo {
         // set the box-sizing back to default
         // here we want the border width to be on top of the photo height and width
@@ -361,7 +426,7 @@
         border: 3px solid #fff;
 
         &:not(:last-of-type) {
-            margin-right: -1.5rem;
+            margin-right: -2rem;
         }
     }
 }
@@ -374,6 +439,11 @@
     margin-bottom: 3.5rem;
     position: relative;
     overflow: hidden;
+
+    @media only screen and (max-width: $bp-medium) {
+        padding: 2rem;
+        margin-bottom: 3rem;
+    }
 
     &__text {
         margin-bottom: 2rem;
@@ -434,6 +504,10 @@
     padding: 3.5rem 0;
     text-align: center;
 
+    @media only screen and (max-width: $bp-medium) {
+        padding: 2.5rem 0;
+    }
+
     &__book-now {
         font-size: 2rem;
         font-weight: 300;
@@ -491,5 +565,4 @@
         outline: none;
         animation: pulstate 1s infinite;
     }
-
 }

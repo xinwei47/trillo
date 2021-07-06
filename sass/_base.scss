@@ -19,6 +19,14 @@
     --line: 1px solid var(--color-grey-light-2);
 }
 
+// set sass variables for use cases that css variables do not work
+// use chrom dev to locate the break-points and set break-point variables
+$bp-largest: 75rem; // 1200/16 = 75
+$bp-large: 68.75rem; // 1100/16 = 68.75
+$bp-medium: 56.25rem; // 900/16 = 56.25
+$bp-small: 37.5rem; // 600/16 = 37.5
+$bp-xsmall: 31.5rem; // 500/16 = 31.25
+
 *,
 *::before,
 *::after {
@@ -29,6 +37,10 @@
 
 html {
     font-size: 62.5%; // 1rem = 10px; 10px/16px = 62.5%
+
+    @media only screen and (max-width: $bp-large) {
+        font-size: 50%; // 1rem  = 8px; 8px/16px = 50% 
+    }
 }
 
 body {
